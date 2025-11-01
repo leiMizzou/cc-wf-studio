@@ -159,7 +159,7 @@
 - [ ] T055 package.jsonにcontributes.configurationを作成 (vscode-extension-api.md section 5.2のworkflowsDirectory, exportDirectory設定を定義)
 - [ ] T056 拡張機能アイコンとREADME.mdを追加 (マーケットプレイスアセット、使用方法)
 - [ ] T057 [P] quickstart.mdの検証を実行 (すべてのセットアップ手順が機能することを確認、クリーン環境でテスト)
-- [ ] T058 [P] コードクリーンアップとリファクタリング (Biomeフォーマット適用、デッドコード削除、命名改善)
+- [X] T058 [P] コードクリーンアップとリファクタリング (Biomeフォーマット適用、デッドコード削除、命名改善) - **完了: lint/formatエラー212個→0個、non-null assertion削除、型安全性向上、アクセシビリティ改善**
 - [ ] T059 すべてのストーリーでパフォーマンス最適化 (plan.md NFR-001の50ノードパフォーマンス目標を検証、research.md section 3.1の残りの最適化を適用)
 - [ ] T060 アクセシビリティ監査 (plan.md Constitution Check IIIのキーボードナビゲーション、ARIAラベル、スクリーンリーダーサポート)
 
