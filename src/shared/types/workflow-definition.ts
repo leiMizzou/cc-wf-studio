@@ -52,9 +52,10 @@ export interface QuestionOption {
 
 export interface AskUserQuestionData {
   questionText: string;
-  options: QuestionOption[];
+  options: QuestionOption[]; // Empty array when useAiSuggestions is true
   multiSelect?: boolean; // If true, user can select multiple options (default: false)
-  outputPorts: number; // 2-4 for single select, 1 for multi-select
+  useAiSuggestions?: boolean; // If true, AI will suggest options dynamically (default: false)
+  outputPorts: number; // 2-4 for single select, 1 for multi-select or AI suggestions
 }
 
 export interface StartNodeData {

@@ -255,11 +255,11 @@ function generateMermaidFlowchart(workflow: Workflow): string {
     if (sourceNode?.type === 'askUserQuestion' && conn.fromPort) {
       const askNode = sourceNode as AskUserQuestionNode;
 
-      // Multi-select: single output without labels
-      if (askNode.data.multiSelect) {
+      // AI suggestions or multi-select: single output without labels
+      if (askNode.data.useAiSuggestions || askNode.data.multiSelect) {
         lines.push(`    ${fromId} --> ${toId}`);
       } else {
-        // Single select: labeled branches by option
+        // Single select with user-defined options: labeled branches by option
         const branchIndex = Number.parseInt(conn.fromPort.replace('branch-', ''), 10);
         const option = askNode.data.options[branchIndex];
 
@@ -414,19 +414,32 @@ function generateWorkflowExecutionLogic(workflow: Workflow): string {
       sections.push('');
 
       // Show selection mode
-      if (node.data.multiSelect) {
+      if (node.data.useAiSuggestions) {
+        sections.push(
+          '**選択モード:** AI提案（AIが文脈に基づいて選択肢を動的に生成し、ユーザーに提示します）'
+        );
+        sections.push('');
+        if (node.data.multiSelect) {
+          sections.push('**複数選択:** 有効（ユーザーは複数の選択肢を選べます）');
+          sections.push('');
+        }
+      } else if (node.data.multiSelect) {
         sections.push('**選択モード:** 複数選択可能（選択された選択肢のリストが次のノードに渡されます）');
+        sections.push('');
+        sections.push('**選択肢:**');
+        for (const option of node.data.options) {
+          sections.push(`- **${option.label}**: ${option.description || '(説明なし)'}`);
+        }
         sections.push('');
       } else {
         sections.push('**選択モード:** 単一選択（選択された選択肢に応じて分岐します）');
         sections.push('');
+        sections.push('**選択肢:**');
+        for (const option of node.data.options) {
+          sections.push(`- **${option.label}**: ${option.description || '(説明なし)'}`);
+        }
+        sections.push('');
       }
-
-      sections.push('**選択肢:**');
-      for (const option of node.data.options) {
-        sections.push(`- **${option.label}**: ${option.description || '(説明なし)'}`);
-      }
-      sections.push('');
     }
   }
 

@@ -53,20 +53,36 @@ export const AskUserQuestionNodeComponent: React.FC<NodeProps<AskUserQuestionDat
           >
             Ask User Question
           </div>
-          {data.multiSelect && (
-            <div
-              style={{
-                fontSize: '9px',
-                padding: '2px 6px',
-                backgroundColor: 'var(--vscode-badge-background)',
-                color: 'var(--vscode-badge-foreground)',
-                borderRadius: '3px',
-                fontWeight: 600,
-              }}
-            >
-              MULTI
-            </div>
-          )}
+          <div style={{ display: 'flex', gap: '4px' }}>
+            {data.useAiSuggestions && (
+              <div
+                style={{
+                  fontSize: '9px',
+                  padding: '2px 6px',
+                  backgroundColor: 'var(--vscode-badge-background)',
+                  color: 'var(--vscode-badge-foreground)',
+                  borderRadius: '3px',
+                  fontWeight: 600,
+                }}
+              >
+                AI
+              </div>
+            )}
+            {data.multiSelect && (
+              <div
+                style={{
+                  fontSize: '9px',
+                  padding: '2px 6px',
+                  backgroundColor: 'var(--vscode-badge-background)',
+                  color: 'var(--vscode-badge-foreground)',
+                  borderRadius: '3px',
+                  fontWeight: 600,
+                }}
+              >
+                MULTI
+              </div>
+            )}
+          </div>
         </div>
 
         {/* Question Text */}
@@ -81,8 +97,8 @@ export const AskUserQuestionNodeComponent: React.FC<NodeProps<AskUserQuestionDat
           {data.questionText || 'Untitled Question'}
         </div>
 
-        {/* Options List */}
-        {data.options && data.options.length > 0 && (
+        {/* Options List - only show when not using AI suggestions */}
+        {!data.useAiSuggestions && data.options && data.options.length > 0 && (
           <div style={{ marginBottom: '8px' }}>
             {data.options.map((option) => (
               <div
@@ -102,6 +118,20 @@ export const AskUserQuestionNodeComponent: React.FC<NodeProps<AskUserQuestionDat
           </div>
         )}
 
+        {/* AI Suggestions Indicator */}
+        {data.useAiSuggestions && (
+          <div
+            style={{
+              fontSize: '11px',
+              color: 'var(--vscode-descriptionForeground)',
+              fontStyle: 'italic',
+              marginBottom: '8px',
+            }}
+          >
+            Options will be suggested by AI
+          </div>
+        )}
+
         {/* Input Handle */}
         <Handle
           type="target"
@@ -116,8 +146,8 @@ export const AskUserQuestionNodeComponent: React.FC<NodeProps<AskUserQuestionDat
         />
 
         {/* Dynamic Output Handles */}
-        {data.multiSelect ? (
-          /* Multi-select: single output handle */
+        {data.useAiSuggestions || data.multiSelect ? (
+          /* AI suggestions or multi-select: single output handle */
           <Handle
             type="source"
             position={Position.Right}
@@ -130,7 +160,7 @@ export const AskUserQuestionNodeComponent: React.FC<NodeProps<AskUserQuestionDat
             }}
           />
         ) : (
-          /* Single select: multiple output handles (2-4 branches) */
+          /* Single select with user-defined options: multiple output handles (2-4 branches) */
           data.options.map((option, i) => (
             <Handle
               key={`branch-${option.label}`}

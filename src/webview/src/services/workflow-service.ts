@@ -189,17 +189,20 @@ function validateNode(node: WorkflowNode): void {
       throw new Error(`Node "${node.id}" question text is required`);
     }
 
-    if (!data.options || data.options.length < 2 || data.options.length > 4) {
-      throw new Error(`Node "${node.id}" must have 2-4 options`);
-    }
-
-    for (const option of data.options) {
-      if (!option.label || option.label.length < 1 || option.label.length > 50) {
-        throw new Error(`Node "${node.id}" option label must be 1-50 characters`);
+    // Skip options validation if AI suggestions mode is enabled
+    if (!data.useAiSuggestions) {
+      if (!data.options || data.options.length < 2 || data.options.length > 4) {
+        throw new Error(`Node "${node.id}" must have 2-4 options`);
       }
 
-      if (!option.description || option.description.length < 1 || option.description.length > 200) {
-        throw new Error(`Node "${node.id}" option description must be 1-200 characters`);
+      for (const option of data.options) {
+        if (!option.label || option.label.length < 1 || option.label.length > 50) {
+          throw new Error(`Node "${node.id}" option label must be 1-50 characters`);
+        }
+
+        if (!option.description || option.description.length < 1 || option.description.length > 200) {
+          throw new Error(`Node "${node.id}" option description must be 1-200 characters`);
+        }
       }
     }
   }

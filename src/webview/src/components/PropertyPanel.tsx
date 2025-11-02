@@ -511,8 +511,56 @@ const AskUserQuestionProperties: React.FC<{
         </div>
       </div>
 
-      {/* Options */}
+      {/* AI Suggestions Toggle */}
       <div>
+        <label
+          htmlFor="ai-suggestions-checkbox"
+          style={{
+            display: 'flex',
+            alignItems: 'center',
+            fontSize: '12px',
+            fontWeight: 600,
+            color: 'var(--vscode-foreground)',
+            cursor: 'pointer',
+            gap: '8px',
+          }}
+        >
+          <input
+            id="ai-suggestions-checkbox"
+            type="checkbox"
+            checked={data.useAiSuggestions || false}
+            onChange={(e) => {
+              const useAiSuggestions = e.target.checked;
+              updateNodeData(node.id, {
+                useAiSuggestions,
+                outputPorts: 1, // AI suggestions always use single output
+                options: useAiSuggestions ? [] : normalizedOptions, // Clear options when AI mode enabled
+              });
+            }}
+            className="nodrag"
+            style={{
+              cursor: 'pointer',
+            }}
+          />
+          <span>AI Suggests Options</span>
+        </label>
+        <div
+          style={{
+            fontSize: '11px',
+            color: 'var(--vscode-descriptionForeground)',
+            marginTop: '4px',
+            marginLeft: '24px',
+          }}
+        >
+          {data.useAiSuggestions
+            ? 'AI will dynamically generate options based on context'
+            : 'Manually define options below'}
+        </div>
+      </div>
+
+      {/* Options */}
+      {!data.useAiSuggestions && (
+        <div>
         <div
           style={{
             display: 'block',
@@ -613,6 +661,7 @@ const AskUserQuestionProperties: React.FC<{
           </button>
         )}
       </div>
+      )}
     </div>
   );
 };
