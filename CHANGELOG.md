@@ -1,3 +1,9 @@
+## [2.11.2](https://github.com/breaking-brake/cc-wf-studio/compare/v2.11.1...v2.11.2) (2025-11-22)
+
+### Bug Fixes
+
+* enable copy-paste in dialog inputs ([#134](https://github.com/breaking-brake/cc-wf-studio/issues/134)) ([c68ef6b](https://github.com/breaking-brake/cc-wf-studio/commit/c68ef6b2032bdda4588dccf2351a47aceeb90346))
+
 ## [2.11.1](https://github.com/breaking-brake/cc-wf-studio/compare/v2.11.0...v2.11.1) (2025-11-21)
 
 ### Bug Fixes
