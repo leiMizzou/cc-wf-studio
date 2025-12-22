@@ -1,3 +1,9 @@
+## [3.9.0](https://github.com/breaking-brake/cc-wf-studio/compare/v3.8.5...v3.9.0) (2025-12-22)
+
+### Features
+
+* add Run as Slash Command feature with toolbar UI improvements ([#309](https://github.com/breaking-brake/cc-wf-studio/issues/309)) ([c7526a3](https://github.com/breaking-brake/cc-wf-studio/commit/c7526a3dc65e348dc40b4e52f98cc4bb718682aa))
+
 ## [3.8.5](https://github.com/breaking-brake/cc-wf-studio/compare/v3.8.4...v3.8.5) (2025-12-22)
 
 ### Bug Fixes
